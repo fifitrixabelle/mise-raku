@@ -16,7 +16,7 @@ mkdir -p "$smoke_dir/project"
 cd "$smoke_dir/project"
 mise plugins link raku "$plugin_dir"
 mise ls-remote raku
-mise use "raku@${1:-2026.09}"
-mise exec "raku@${1:-2026.09}" -- raku --version
-mise exec "raku@${1:-2026.09}" -- raku -e 'die "Raku assertion failed" unless (20 + 22) == 42; say "Raku smoke test passed"'
-mise exec "raku@${1:-2026.09}" -- zef --version
+mise use "raku@${1:-2026.11}"
+mise exec "raku@${1:-2026.11}" -- raku --version
+mise exec "raku@${1:-2026.11}" -- raku -e 'die "Raku assertion failed" unless (20 + 22) == 42; say "Raku smoke test passed"'
+mise exec "raku@${1:-2026.11}" -- zef --version

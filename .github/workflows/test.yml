@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '23 7 * * 1'
 
 permissions:
   contents: read
@@ -13,7 +15,7 @@ jobs:
   unit:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: sudo apt-get update && sudo apt-get install -y lua5.1
       - run: lua5.1 tests/test.lua
 
@@ -22,12 +24,13 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, macos-15, macos-15-intel]
+        raku: ['2026.11', latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a # v5.2.10
         with:
-          version: 2026.10.23
+          version: 2026.11.10
           install: false
           cache: false
-      - run: bash tests/smoke.sh
+      - run: bash tests/smoke.sh "${{ matrix.raku }}"

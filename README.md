@@ -20,11 +20,11 @@ Or declare the plugin explicitly in `mise.toml`:
 raku = "https://github.com/fifitrixabelle/mise-raku.git"
 
 [tools]
-raku = "2026.09"
+raku = "2026.11"
 ```
 
 Then run `mise install`. Use a current mise release; development and CI use
-mise 2026.10.23. This plugin uses mise's built-in Lua runtime.
+mise 2026.11.10. This plugin uses mise's built-in Lua runtime.
 
 If you already installed the archived asdf Raku plugin, replace its plugin
 checkout first (installed Raku versions remain on disk):
@@ -73,7 +73,7 @@ for mise's release-age settings.
 
 ```sh
 lua tests/test.lua
-bash tests/smoke.sh          # pinned Rakudo 2026.09
+bash tests/smoke.sh          # pinned Rakudo 2026.11
 bash tests/smoke.sh latest   # newest binary for this platform
 ```
 
@@ -81,7 +81,9 @@ Unit tests require Lua 5.1 or newer, with no extra Lua packages. The smoke test
 requires mise, Bash, network access and a supported platform. It creates an
 isolated temporary mise environment and retains its path for inspection.
 It lists releases, installs Rakudo, runs a Raku assertion, and checks zef.
-CI runs unit tests on Lua 5.1 and smoke tests on all three supported platforms.
+CI runs unit tests on Lua 5.1 and smoke tests for both Rakudo 2026.11 and
+`latest` on all three supported platforms, on pushes, pull requests and weekly.
+Dependabot checks the pinned GitHub Actions for updates weekly.
 
 The plugin consists of `metadata.lua`, three hooks, and one shared release
 module. Mise handles downloads, checksum verification and extraction.
